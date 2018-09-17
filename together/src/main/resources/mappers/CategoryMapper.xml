@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间 ，值必须为接口的名称（包括包名）-->
+	<!-- 实现类没有，mybatis框架会生成接口的实现类 -->
+	<mapper namespace="cn.orange.mapper.CategoryMapper">
+		<!-- void selectAllCategory(); -->
+		<!-- 查找所有分类 -->
+		<select id="selectAllCategory" resultType="cn.orange.bean.Category">
+			select id,category_name categoryName from t_category;
+		</select>
+		<!-- Category selectCategoryById(Integer id); -->
+		<!-- 通过id查找分类 -->
+		<select id="selectCategoryById" resultType="cn.orange.bean.Category">
+			select category_name categoryName from t_category where id=#{id};
+		</select>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

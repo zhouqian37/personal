@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间 ，值必须为接口的名称（包括包名）-->
+	<!-- 实现类没有，mybatis框架会生成接口的实现类 -->
+	<mapper namespace="cn.orange.mapper.UserMapper">
+		<!-- User selectById(Integer id); -->
+		<!-- 通过id查找用户 -->
+		<select id="selectById" resultType="cn.orange.bean.User">
+			select id,username,password,nickname,email,phone from t_user where id=#{id}
+		</select>
+		
+		<!-- void insertUser(User user); -->
+		<!-- 向数据库插入用户 -->
+		<insert id="insertUser" parameterType="cn.orange.bean.User">
+			insert into t_user(username,password,nickname,email,phone) 
+			values (#{username},#{password},#{nickname},#{email},#{phone});
+		</insert>
+		
+		<!-- User selectByUsername(String username); -->
+		<!-- 通过username查找用户 -->
+		<select id="selectByUsername" resultType="cn.orange.bean.User">
+			select id,username,password,nickname,email,phone from t_user where username=#{username}
+		</select>
+		<!-- 修改用户信息 -->
+		<!-- void updateUser(User user); -->
+		<update id="updateUser" 
+				parameterType="cn.orange.bean.User">
+			update 
+				t_user
+			<set>
+				<if test="password!=null">
+					password=#{password},
+				</if>
+				<if test="username!=null">
+					username=#{username},
+				</if>
+				<if test="nickname!=null">
+					nickname=#{nickname},
+				</if>
+				<if test="phone!=null">
+					phone=#{phone},
+				</if>
+				<if test="email!=null">
+					email=#{email},
+				</if>
+			</set>
+			where
+				id=#{id}
+		</update>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间 ，值必须为接口的名称（包括包名）-->
+	<!-- 实现类没有，mybatis框架会生成接口的实现类 -->
+	<mapper namespace="cn.orange.mapper.UserActMapper">
+		<!-- void insertUserAct(UserAct ua); -->
+		<!-- 添加用户活动关系信息 -->
+		<insert id="insertUserAct" parameterType="cn.orange.bean.UserAct">
+			insert into t_ua (uid,aid) values (#{uid},#{aid});
+		</insert>
+		
+		<!-- void deleteUserAct(@Param("uid") Integer uid,@Param("aid") Integer aid); -->
+		<!-- 删除用户活动 -->
+		<delete id="deleteUserAct">
+			delete from t_ua where uid=#{uid} and aid=#{aid};
+		</delete>
+		
+		<!-- Integer selectUserSumByAid(Integer aid); -->
+		<!-- 查询参加活动的用户人数 -->
+		<select id="selectUserSumByAid" resultType="java.lang.Integer">
+			select count(*) from t_ua where aid=#{aid};
+		</select>
+		<!-- Integer selectUser(@Param("uid") Integer uid,@Param("aid") Integer aid); -->
+		<!-- 查找所有参与活动的用户id -->
+		<select id="selectUser" resultType="java.lang.Integer">
+			select count(*) from t_ua where uid=#{uid} and aid=#{aid};
+		</select>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

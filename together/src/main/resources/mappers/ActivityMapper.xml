@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<!-- namespace表示命名空间 ，值必须为接口的名称（包括包名）-->
+	<!-- 实现类没有，mybatis框架会生成接口的实现类 -->
+	<mapper namespace="cn.orange.mapper.ActivityMapper">
+		<!-- List<Activity> selectAllAct();  -->
+		<!-- 查询所有活动 -->
+		<select id="selectAllAct" resultType="cn.orange.bean.Activity">
+			select 
+				id,category_id categoryId,
+				act_name actName,
+				act_place actPlace,
+				act_detail actDetail,
+				act_cost actCost,
+				act_price actPrice,
+				act_sum actSum,
+				act_time actTime
+			from t_act;
+		</select>
+		<!-- void insertAct(Activity act); -->
+		<!-- 插入活动信息 -->
+		<insert id="insertAct" parameterType="cn.orange.bean.Activity" useGeneratedKeys="true" keyProperty="id">
+			insert into t_act
+				(category_id,
+				act_name,
+				act_place,
+				act_detail,
+				act_cost,
+				act_price,
+				act_sum,
+				act_time)
+			values
+				(#{categoryId},
+				#{actName},
+				#{actPlace},
+				#{actDetail},
+				#{actCost},
+				#{actPrice},
+				#{actSum},
+				#{actTime});
+		</insert>
+		<!-- List<Activity> selectUserActByUid(Integer uid); -->
+		<!-- 根据用户id查询该用户相关活动 -->
+		<select id="selectUserActByUid" resultType="cn.orange.bean.Activity">
+			select 
+				t_act.id,
+				t_act.category_id categoryId,
+				t_act.act_name actName,
+				t_act.act_place actPlace,
+				t_act.act_detail actDetail,
+				t_act.act_cost actCost,
+				t_act.act_price actPrice,
+				t_act.act_sum actSum,
+				t_act.act_time actTime from t_act join t_ua on t_act.id=t_ua.aid where t_ua.uid=#{uid};
+		</select>
+		<!-- List<Activity> selectActivityBySearch(String search); -->
+		<!-- 模糊搜索，搜索栏查找活动 -->
+		<select id="selectActivityBySearch" resultType="cn.orange.bean.Activity">
+			select 
+				id,
+				category_id categoryId,
+				act_name actName,
+				act_place actPlace,
+				act_detail actDetail,
+				act_cost actCost,
+				act_price actPrice,
+				act_sum actSum,
+				act_time actTime 
+				from t_act where 
+				act_Name like concat(concat('%',#{serach}),'%') or 
+				act_Place like concat(concat('%',#{serach}),'%') or 
+				act_Detail like concat(concat('%',#{serach}),'%');
+		</select>
+		<!-- Activity selectActivityById(Integer id); -->
+		<!-- 通过id查询活动详情 -->
+		<select id="selectActivityById" resultType="cn.orange.bean.Activity">
+			select 
+				id,
+				category_id categoryId,
+				act_name actName,
+				act_place actPlace,
+				act_detail actDetail,
+				act_cost actCost,
+				act_price actPrice,
+				act_sum actSum,
+				act_time actTime 
+				from t_act where id=#{id};
+		</select>
+		<!-- List<User> selectUserByAid(Integer aid); -->
+		<!-- 通过活动aid查询用户信息，并放入list中 -->
+		<select id="selectUserByAid" resultType="cn.orange.bean.User">
+			select 
+				t_user.id id,
+				t_user.username username,
+				t_user.password password,
+				t_user.nickname nickname,
+				t_user.email email,
+				t_user.phone phone 
+				from t_user join t_ua on t_user.id=t_ua.uid where t_ua.aid=#{aid};
+		</select>
+		<!-- List<Activity> selectActivityByCategoryId(Integer id); -->
+		<!-- 通过分类查找活动 -->
+		<select id="selectActivityByCategoryId" resultType="cn.orange.bean.Activity">
+			select id,
+				category_id categoryId,
+				act_name actName,
+				act_place actPlace,
+				act_detail actDetail,
+				act_cost actCost,
+				act_price actPrice,
+				act_sum actSum,
+				act_time actTime 
+				from t_act where category_id=#{categoryId};
+		</select>
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
